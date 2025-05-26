@@ -1,6 +1,6 @@
 ﻿namespace MyEducationPlan.Domain.Entities;
 
-public class InternProjectTable
+public class InternProject
 {
     public int ProjectId { get; set; } // Primary Key
     
