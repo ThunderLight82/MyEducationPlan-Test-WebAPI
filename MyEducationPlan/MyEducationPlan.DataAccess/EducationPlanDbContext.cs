@@ -13,10 +13,19 @@ public class EducationPlanDbContext : DbContext
     // Some design parameters for entities and prepopulate ProjectTable inside DB list for quick personal testing
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
         modelBuilder.Entity<InternProject>()
-            .HasIndex(g => g.Name)
-            .IsUnique();
+            .HasKey(p => p.ProjectId);
+        
+        modelBuilder.Entity<InternProject>()
+            .HasIndex(g => g.Name).IsUnique();
 
+        modelBuilder.Entity<InternProjectFeedback>()
+            .HasKey(p => p.FeedbackId);
+
+        modelBuilder.Entity<InternProjectFeedback>()
+            .HasOne(f => f.Project).WithMany(p => p.Feedbacks).HasForeignKey(f => f.ProjectId);
+        
         modelBuilder.Entity<InternProject>().HasData
         (
             new() 
@@ -34,7 +43,7 @@ public class EducationPlanDbContext : DbContext
             { FeedbackId = 2, ProjectId = 1, EmployeeName = "Ethan Douglass", Rating = 6 , Comment = "Тест фітбек №2"},
             
             new() 
-            { FeedbackId = 1, ProjectId = 2, EmployeeName = "Olexander Borozuy", Rating = 10, Comment = "Тест фітбек волонтерка №1"}
+            { FeedbackId = 3, ProjectId = 2, EmployeeName = "Olexander Borozuy", Rating = 10, Comment = "Тест фітбек волонтерка №1"}
         );
     }
 }

@@ -9,4 +9,6 @@ public class InternProject
     public string Owner { get; set; }
     
     public int EstimatedBudget { get; set; }
+
+    public List<InternProjectFeedback> Feedbacks { get; set; } = new();
 }
