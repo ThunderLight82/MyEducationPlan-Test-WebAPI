@@ -8,7 +8,7 @@ namespace MyEducationPlan.Application.Services;
 
 public class ProjectService : IProjectService
 {
-    protected readonly EducationPlanDbContext _dbContext;
+    private readonly EducationPlanDbContext _dbContext;
     private readonly ILogger<ProjectService> _logger;
 
     public ProjectService(EducationPlanDbContext dbContext, ILogger<ProjectService> logger)
@@ -52,6 +52,12 @@ public class ProjectService : IProjectService
             .Where(p => p.ProjectId == projectId)
             .Include(p => p.Feedbacks)
             .FirstOrDefaultAsync();
+        
+        if (project == null)
+        {
+            _logger.LogWarning("Intern Project with ID {ProjectId} not found.", projectId);
+            throw new KeyNotFoundException($"Intern Project with ID {projectId} not found.");
+        }
 
         if (!project.Feedbacks.Any())
         {
