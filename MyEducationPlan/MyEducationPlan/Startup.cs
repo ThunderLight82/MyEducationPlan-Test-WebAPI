@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MyEducationPlan.Application.Services;
+using MyEducationPlan.Application.Services.Interfaces;
 using MyEducationPlan.DataAccess;
 
 namespace MyEducationPlan;
@@ -34,7 +36,7 @@ public class Startup
     
     private void RegisterServices(IServiceCollection services)
     {
-        // Future Service registration TODO
+        services.AddScoped<IProjectService, ProjectService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,10 +56,18 @@ public class Startup
         app.UseRouting();
         app.UseAuthorization();
         
-        // Future Endpoints for HomePage TODO
         app.UseEndpoints(endpoints =>
         {
-            
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=GetProjects}/{projectId?}"
+            );
+
+            endpoints.MapControllerRoute(
+                name: "Feedbacks",
+                pattern: "Home/ProjectFeedbacksList/{projectId}",
+                defaults: new { controller = "Home", action = "GetGroups" }
+            );
         });
         
         app.UseSwagger();
