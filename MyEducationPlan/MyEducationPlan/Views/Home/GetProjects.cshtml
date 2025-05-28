@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MyEducationPlan.Domain.Entities.InternProject>
+
+<div class="home-container">
+    
+    <div class="projects-list">
+        <h2>Projects</h2>
+        <ul>
+            @foreach (var project in Model)
+            {
+                <li>
+                    <a href="@Url.Action("GetFeedbacksListByProjectId", "Home", new { projectId = project.ProjectId })">@project.Name</a>
+                </li>
+            }
+        </ul>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" style="margin-top: 15px;">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+    </div>
+    
+</div>
