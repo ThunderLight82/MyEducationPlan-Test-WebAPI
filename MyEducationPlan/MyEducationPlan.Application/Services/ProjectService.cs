@@ -11,7 +11,7 @@ public class ProjectService : IProjectService
     protected readonly EducationPlanDbContext _dbContext;
     private readonly ILogger<ProjectService> _logger;
 
-    private ProjectService(EducationPlanDbContext dbContext, ILogger<ProjectService> logger)
+    public ProjectService(EducationPlanDbContext dbContext, ILogger<ProjectService> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
