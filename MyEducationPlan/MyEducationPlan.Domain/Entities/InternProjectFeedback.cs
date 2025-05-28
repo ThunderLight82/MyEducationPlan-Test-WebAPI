@@ -13,5 +13,4 @@ public class InternProjectFeedback
     public string Comment { get; set; }
 
     public InternProject Project { get; set; } = null!;
-
 }
