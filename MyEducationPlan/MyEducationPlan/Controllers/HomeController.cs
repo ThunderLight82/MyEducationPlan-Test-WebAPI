@@ -1,31 +1,47 @@
-using System.Diagnostics;
+
 using Microsoft.AspNetCore.Mvc;
-using MyEducationPlan.Models;
+using MyEducationPlan.Application.Services.Interfaces;
 
 namespace MyEducationPlan.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly IProjectService _projectService;
+    
+    public HomeController(IProjectService projectService)
     {
-        _logger = logger;
+        _projectService = projectService;
     }
 
-    public IActionResult Index()
+    // GET: /Home
+    [HttpGet]
+    public async Task<IActionResult> GetProjects(string errorMessage)
     {
-        return View();
+        if (!string.IsNullOrEmpty(errorMessage))
+        {
+            ViewBag.ErrorMessage = errorMessage;
+        }
+        
+        var projects = await _projectService.GetProjects();
+        
+        return View(projects);
     }
-
-    public IActionResult Privacy()
+    
+    // NAV GET: /Home/ProjectFeedbacksList/{projectId}
+    [HttpGet]
+    public async Task<IActionResult> GetFeedbacksListByProjectId(int projectId)
     {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        try
+        {
+            var feedbacks = await _projectService.GetFeedbacksListByProjectId(projectId);
+            
+            return View(feedbacks);
+        }
+        catch (Exception ex)
+        {
+            ViewBag.ErrorMessage = $"An error occurred: {ex.Message}";
+            
+            return RedirectToAction("GetProjects", "Home", new { errorMessage = ViewBag.ErrorMessage });
+        }
     }
 }
