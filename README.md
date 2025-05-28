@@ -1,4 +1,3 @@
-# MyEducationPlan-Test-WebAPI
 Trainee ERP Developer test task from "OntargIT".
 
 Тому хто це буде перевіряти:
