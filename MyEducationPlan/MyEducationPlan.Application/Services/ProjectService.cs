@@ -61,7 +61,7 @@ public class ProjectService : IProjectService
 
         if (!project.Feedbacks.Any())
         {
-            _logger.LogInformation("No feedbacks found for project ID {ProjectId}.", projectId);
+            _logger.LogWarning("No feedbacks found for project ID {ProjectId}.", projectId);
             return Enumerable.Empty<InternProjectFeedback>();
         }
         
