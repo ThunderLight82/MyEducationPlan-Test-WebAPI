@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using MyEducationPlan.Application.Services;
 using MyEducationPlan.Application.Services.Interfaces;
 using MyEducationPlan.DataAccess;
+using MyEducationPlan.Domain;
 
 namespace MyEducationPlan;
 
@@ -37,6 +38,9 @@ public class Startup
     private void RegisterServices(IServiceCollection services)
     {
         services.AddScoped<IProjectService, ProjectService>();
+        services.AddScoped<ICsvService, CsvService>();
+        
+        services.Configure<FeedbackSettings>(Configuration.GetSection("FeedbackSettings"));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
