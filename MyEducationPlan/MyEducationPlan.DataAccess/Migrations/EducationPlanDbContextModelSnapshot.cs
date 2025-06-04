@@ -34,16 +34,13 @@ namespace MyEducationPlan.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Owner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProjectId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("InternProjects");
 
@@ -112,6 +109,14 @@ namespace MyEducationPlan.DataAccess.Migrations
                         new
                         {
                             FeedbackId = 3,
+                            Comment = ">>Негативний фітбек №1<<",
+                            EmployeeName = "Hola Rega",
+                            ProjectId = 1,
+                            Rating = 2
+                        },
+                        new
+                        {
+                            FeedbackId = 4,
                             Comment = "Тест фітбек волонтерка №1",
                             EmployeeName = "Olexander Borozuy",
                             ProjectId = 2,
