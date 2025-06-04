@@ -16,9 +16,6 @@ public class EducationPlanDbContext : DbContext
         
         modelBuilder.Entity<InternProject>()
             .HasKey(p => p.ProjectId);
-        
-        modelBuilder.Entity<InternProject>()
-            .HasIndex(g => g.Name).IsUnique();
 
         modelBuilder.Entity<InternProjectFeedback>()
             .HasKey(p => p.FeedbackId);
@@ -43,7 +40,10 @@ public class EducationPlanDbContext : DbContext
             { FeedbackId = 2, ProjectId = 1, EmployeeName = "Ethan Douglass", Rating = 6 , Comment = "Тест фітбек №2"},
             
             new() 
-            { FeedbackId = 3, ProjectId = 2, EmployeeName = "Olexander Borozuy", Rating = 10, Comment = "Тест фітбек волонтерка №1"}
+                { FeedbackId = 3, ProjectId = 1, EmployeeName = "Hola Rega", Rating = 2 , Comment = ">>Негативний фітбек №1<<"},
+            
+            new() 
+            { FeedbackId = 4, ProjectId = 2, EmployeeName = "Olexander Borozuy", Rating = 10, Comment = "Тест фітбек волонтерка №1"}
         );
     }
 }
