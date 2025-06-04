@@ -71,7 +71,7 @@ public class ProjectService : IProjectService
         return project.Feedbacks;
     }
     
-    public async Task<double> CalculateAverageProjectRating(int projectId)
+    public async Task<double?> CalculateAverageProjectRating(int projectId)
     {
         var project = await _dbContext.InternProjects
             .Include(p => p.Feedbacks)
@@ -86,7 +86,7 @@ public class ProjectService : IProjectService
         if (!project.Feedbacks.Any())
         {
             _logger.LogWarning("No feedbacks found for project ID {ProjectId}.", projectId);
-            return 0;
+            return null;
         }
 
         return project.Feedbacks.Average(f => f.Rating);
