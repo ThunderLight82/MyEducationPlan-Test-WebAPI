@@ -58,13 +58,13 @@ public class ProjectService : IProjectService
         
         if (project == null)
         {
-            _logger.LogWarning("Intern Project with ID {ProjectId} not found.", projectId);
-            throw new KeyNotFoundException($"Intern Project with ID {projectId} not found.");
+            _logger.LogWarning("Intern Project with ID [{ProjectId}] not found.", projectId);
+            throw new KeyNotFoundException($"Intern Project with ID [{projectId}] not found.");
         }
 
         if (!project.Feedbacks.Any())
         {
-            _logger.LogWarning("No feedbacks found for project ID {ProjectId}.", projectId);
+            _logger.LogWarning("No feedbacks found for project ID [{ProjectId}].", projectId);
             return Enumerable.Empty<InternProjectFeedback>();
         }
         
@@ -79,13 +79,13 @@ public class ProjectService : IProjectService
 
         if (project == null)
         {
-            _logger.LogWarning("Project with ID {ProjectId} not found.", projectId);
-            throw new KeyNotFoundException($"Project with ID {projectId} not found.");
+            _logger.LogWarning("Project with ID [{ProjectId}] not found.", projectId);
+            throw new KeyNotFoundException($"Project with ID [{projectId}] not found.");
         }
 
         if (!project.Feedbacks.Any())
         {
-            _logger.LogWarning("No feedbacks found for project ID {ProjectId}.", projectId);
+            _logger.LogWarning("No feedbacks found for project ID [{ProjectId}].", projectId);
             return null;
         }
 
@@ -102,8 +102,8 @@ public class ProjectService : IProjectService
 
         if (project == null)
         {
-            _logger.LogWarning("Project with ID {ProjectId} not found.", projectId);
-            throw new KeyNotFoundException($"Project with ID {projectId} not found.");
+            _logger.LogWarning("Project with ID [{ProjectId}] not found.", projectId);
+            throw new KeyNotFoundException($"Project with ID [{projectId}] not found.");
         }
 
         var negativeFeedbacks = project.Feedbacks
@@ -112,14 +112,14 @@ public class ProjectService : IProjectService
 
         if (!negativeFeedbacks.Any())
         {
-            _logger.LogWarning("No negative feedbacks found for project ID {ProjectId}.", projectId);
+            _logger.LogWarning("No negative feedbacks found for project ID [{ProjectId}].", projectId);
             return;
         }
 
         _dbContext.InternProjectFeedbacks.RemoveRange(negativeFeedbacks);
+        
         await _dbContext.SaveChangesAsync();
-
-        _logger.LogInformation("{Count} negative feedbacks removed from project ID {ProjectId}.", negativeFeedbacks.Count, projectId);
+        _logger.LogInformation("{Count} negative feedbacks removed from project ID [{ProjectId}].", negativeFeedbacks.Count, projectId);
     }
     
     public async Task DeleteSingleFeedbackById(int feedbackId)
@@ -129,12 +129,13 @@ public class ProjectService : IProjectService
 
         if (feedback == null)
         {
-            _logger.LogWarning("Feedback with ID {FeedbackId} not found.", feedbackId);
-            throw new KeyNotFoundException($"Feedback with ID {feedbackId} not found.");
+            _logger.LogWarning("Feedback with ID [{FeedbackId}] not found.", feedbackId);
+            throw new KeyNotFoundException($"Feedback with ID [{feedbackId}] not found.");
         }
 
         _dbContext.InternProjectFeedbacks.Remove(feedback);
+        
         await _dbContext.SaveChangesAsync();
-        _logger.LogInformation("Feedback with ID {FeedbackId} successfully deleted.", feedbackId);
+        _logger.LogInformation("Feedback with ID [{FeedbackId}] successfully deleted.", feedbackId);
     }
 }
