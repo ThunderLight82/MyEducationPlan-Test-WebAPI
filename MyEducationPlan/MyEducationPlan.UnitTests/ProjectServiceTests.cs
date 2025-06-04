@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/*using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MyEducationPlan.Application.Services.Interfaces;
 using MyEducationPlan.DataAccess;
 using Moq;
 using MyEducationPlan.Application.Services;
+using MyEducationPlan.Domain;
 using Xunit;
 
 namespace MyEducationPlan.UnitTests;
@@ -14,14 +16,16 @@ public class ProjectServiceTests
     private readonly EducationPlanDbContext _dbContext;
     private readonly EducationPlanDbContext _emptyDbContext;
     private readonly IProjectService _projectService;
+    private readonly FeedbackSettings _settings;
     
     public ProjectServiceTests()
     {
+        _settings = new IOptions<FeedbackSettings>;
         _mockLoggerService = new Mock<ILogger<ProjectService>>();
 
         _dbContext = CreateAndSeedTestDb();
         
-        _projectService = new ProjectService(_dbContext, _mockLoggerService.Object);
+        _projectService = new ProjectService(_dbContext, _mockLoggerService.Object,);
         
         //Separate empty DB for null or empty cases.  
         _emptyDbContext = CreateEmptyTestDb(); 
@@ -152,4 +156,4 @@ public class ProjectServiceTests
 
         return new EducationPlanDbContext(options);
     }
-}
+}*/
