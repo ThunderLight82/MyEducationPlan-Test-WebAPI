@@ -1,18 +1,55 @@
 @model IEnumerable<MyEducationPlan.Domain.Entities.InternProjectFeedback>
 
+@{
+    var projectId = Model.FirstOrDefault()?.ProjectId ?? 0;
+}
+
 <div class="home-container">
     <div class="feedbacks-list">
-        <h2>Feedbacks</h2>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>Feedbacks</h2>
+            
+            <form asp-action="DeleteAllNegativeFeedbacks" asp-controller="Home" method="post">
+                <input type="hidden" name="projectId" value="@projectId" />
+                <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Are you sure you want to delete all negative feedbacks in this project?')">Delete All Negative Feedbacks</button>
+            </form>
+
+            <form asp-action="CalculateAverageRating" asp-controller="Home" method="post">
+                <input type="hidden" name="projectId" value="@projectId" />
+                <button type="submit" class="btn btn-primary btn-sm">Calculate Average Project Rating</button>
+            </form>
+            
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" style="margin-top: 20px;">@TempData["SuccessMessage"]</div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" style="margin-top: 20px;">@TempData["ErrorMessage"]</div>
+        }
+
+        @if (TempData["AverageRating"] != null)
+        {
+            <div class="alert alert-info mt-2" style="margin-top: 20px;">@TempData["AverageRating"]</div>
+        }
+        
         <ul>
+
             @foreach (var feedback in Model)
             {
                 <li>
-                    <strong>Project employee:</strong> @feedback.EmployeeName<br />
-                    <strong>Rating:</strong> @feedback.Rating<br />
+                    <strong>Project employee:</strong> @feedback.EmployeeName<br/>
+                    <strong>Rating:</strong> @feedback.Rating<br/>
                     <strong>Comment:</strong> @feedback.Comment
                 </li>
-                <hr />
+                <hr/>
             }
         </ul>
+        
     </div>
 </div>
