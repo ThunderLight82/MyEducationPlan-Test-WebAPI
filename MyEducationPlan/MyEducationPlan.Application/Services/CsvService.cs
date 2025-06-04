@@ -20,7 +20,7 @@ public class CsvService : ICsvService
         _logger = logger;
     }
     
-    public async Task ImportFeedbacksFromCsvFileAsync(string filePath)
+    public async Task ImportFeedbacksFromCsvFile(string filePath)
     {
         if (!File.Exists(filePath))
         {
@@ -37,6 +37,7 @@ public class CsvService : ICsvService
             var project = await _dbContext.InternProjects
                 .FirstOrDefaultAsync(p => p.Name == record.ProjectName);
 
+            // TODO Також є можливість прописати перевірку на рейтинг в файлу. макс = 10, мін = 1
             if (project == null)
             {
                 _logger.LogWarning("No project found with name: {ProjectName}", record.ProjectName);

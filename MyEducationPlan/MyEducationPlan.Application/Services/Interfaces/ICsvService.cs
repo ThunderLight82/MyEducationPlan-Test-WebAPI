@@ -4,5 +4,5 @@ namespace MyEducationPlan.Application.Services.Interfaces;
 
 public interface ICsvService
 { 
-    Task ImportFeedbacksFromCsvFileAsync(string filePath);
+    Task ImportFeedbacksFromCsvFile(string filePath);
 }
