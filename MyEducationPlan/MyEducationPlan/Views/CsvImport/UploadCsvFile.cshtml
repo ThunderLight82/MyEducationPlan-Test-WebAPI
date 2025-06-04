@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Import CSV File";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">
+                        <i class="fas fa-file-import me-2"></i>CSV File Import
+                    </h2>
+                </div>
+                
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" asp-action="UploadCsvFile" asp-controller="CsvImport" class="needs-validation" novalidate>
+                        <div class="mb-4">
+                            <label for="csvFile" class="form-label fw-bold">
+                                <i class="fas fa-file-csv me-2"></i>Select CSV File
+                            </label>
+                            <input type="file" 
+                                   id="csvFile" 
+                                   name="csvFile" 
+                                   accept=".csv" 
+                                   class="form-control form-control-lg" 
+                                   required />
+                            <div class="invalid-feedback">
+                                Please select a CSV file to import.
+                            </div>
+                            <small class="text-muted">Supported format: .csv (Comma Separated Values)</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-upload me-2"></i>Import File
+                            </button>
+                        </div>
+                    </form>
+                    
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success mt-4">
+                            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                        </div>
+                    }
+                    
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger mt-4">
+                            <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+                        </div>
+                    }
+                </div>
+                
+                <div class="card-footer bg-light">
+                    <div class="text-center small text-muted">
+                        <i class="fas fa-info-circle me-2"></i>Supported columns formating: ProjectName,EmployeeName,Rating,Comment
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            'use strict'
+            
+            const forms = document.querySelectorAll('.needs-validation')
+            
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}
