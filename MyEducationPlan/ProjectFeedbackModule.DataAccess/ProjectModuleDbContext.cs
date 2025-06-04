@@ -3,12 +3,12 @@ using ProjectFeedbackModule.Domain.Entities;
 
 namespace ProjectFeedbackModule.DataAccess;
 
-public class EducationPlanDbContext : DbContext
+public class ProjectModuleDbContext : DbContext
 {
     public DbSet<InternProject> InternProjects { get; set; } = null!;
     public DbSet<InternProjectFeedback> InternProjectFeedbacks { get; set; } = null!;
     
-    public EducationPlanDbContext(DbContextOptions<EducationPlanDbContext> options) : base(options) { }
+    public ProjectModuleDbContext(DbContextOptions<ProjectModuleDbContext> options) : base(options) { }
     
     // Some design parameters for entities and prepopulate ProjectTable inside DB list for quick personal testing
     protected override void OnModelCreating(ModelBuilder modelBuilder)

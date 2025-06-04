@@ -9,7 +9,7 @@ using ProjectFeedbackModule.DataAccess;
 
 namespace ProjectFeedbackModule.DataAccess.Migrations
 {
-    [DbContext(typeof(EducationPlanDbContext))]
+    [DbContext(typeof(ProjectModuleDbContext))]
     partial class EducationPlanDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

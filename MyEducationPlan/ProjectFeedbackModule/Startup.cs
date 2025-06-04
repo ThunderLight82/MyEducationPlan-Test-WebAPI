@@ -19,7 +19,7 @@ public class Startup
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContextPool<EducationPlanDbContext>(options => options
+        services.AddDbContextPool<ProjectModuleDbContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("SQLServer")));
 
         RegisterServices(services);

@@ -84,11 +84,11 @@ public class HomeController : Controller
     //POST [DELETE SELECTED NEGATIVE FEEDBACK IN PROJECT]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteSingleSelectedFeedback(int feedbackId, int projectId)
+    public async Task<IActionResult> DeleteSingleSelectedFeedback(int projectId, int feedbackId)
     {
         try
         {
-            await _projectService.DeleteSingleFeedbackById(feedbackId);
+            await _projectService.DeleteSingleFeedbackById(projectId, feedbackId);
             TempData["SuccessMessage"] = "Feedback deleted successfully.";
         }
         catch (Exception ex)

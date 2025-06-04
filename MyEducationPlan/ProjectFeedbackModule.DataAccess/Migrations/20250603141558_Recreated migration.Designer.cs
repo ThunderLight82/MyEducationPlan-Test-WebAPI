@@ -10,7 +10,7 @@ using ProjectFeedbackModule.DataAccess;
 
 namespace ProjectFeedbackModule.DataAccess.Migrations
 {
-    [DbContext(typeof(EducationPlanDbContext))]
+    [DbContext(typeof(ProjectModuleDbContext))]
     [Migration("20250603141558_Recreated migration")]
     partial class Recreatedmigration
     {

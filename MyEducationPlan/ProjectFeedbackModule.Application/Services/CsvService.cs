@@ -11,10 +11,10 @@ namespace ProjectFeedbackModule.Application.Services;
 
 public class CsvService : ICsvService
 {
-    private readonly EducationPlanDbContext _dbContext;
+    private readonly ProjectModuleDbContext _dbContext;
     private readonly ILogger<CsvService> _logger;
 
-    public CsvService(EducationPlanDbContext dbContext, ILogger<CsvService> logger)
+    public CsvService(ProjectModuleDbContext dbContext, ILogger<CsvService> logger)
     {
         _dbContext = dbContext;
         _logger = logger;

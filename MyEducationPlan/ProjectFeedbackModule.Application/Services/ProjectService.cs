@@ -10,11 +10,11 @@ namespace ProjectFeedbackModule.Application.Services;
 
 public class ProjectService : IProjectService
 {
-    private readonly EducationPlanDbContext _dbContext;
+    private readonly ProjectModuleDbContext _dbContext;
     private readonly FeedbackSettings _settings;
     private readonly ILogger<ProjectService> _logger;
 
-    public ProjectService(EducationPlanDbContext dbContext, ILogger<ProjectService> logger, IOptions<FeedbackSettings> settings)
+    public ProjectService(ProjectModuleDbContext dbContext, ILogger<ProjectService> logger, IOptions<FeedbackSettings> settings)
     {
         _dbContext = dbContext;
         _logger = logger;
@@ -122,18 +122,36 @@ public class ProjectService : IProjectService
         _logger.LogInformation("{Count} negative feedbacks removed from project ID [{ProjectId}].", negativeFeedbacks.Count, projectId);
     }
     
-    public async Task DeleteSingleFeedbackById(int feedbackId)
+    public async Task DeleteSingleFeedbackById(int projectId, int feedbackId)
     {
-        var feedback = await _dbContext.InternProjectFeedbacks
-            .FirstOrDefaultAsync(f => f.FeedbackId == feedbackId);
-
-        if (feedback == null)
+        var negativeRatingThreshold = _settings.NegativeRatingThreshold;
+        
+        var project = await _dbContext.InternProjects
+            .Include(p => p.Feedbacks)
+            .FirstOrDefaultAsync(p => p.ProjectId == projectId);
+        
+        if (project == null)
         {
-            _logger.LogWarning("Feedback with ID [{FeedbackId}] not found.", feedbackId);
-            throw new KeyNotFoundException($"Feedback with ID [{feedbackId}] not found.");
+            _logger.LogWarning("Project with ID [{ProjectId}] not found.", projectId);
+            throw new KeyNotFoundException($"Project with ID [{projectId}] not found.");
+        }
+        
+        var negativeFeedback = project.Feedbacks
+            .FirstOrDefault(f => f.FeedbackId == feedbackId);
+
+        if (negativeFeedback == null)
+        {
+            _logger.LogWarning("Feedback with ID [{FeedbackId}] not found in project ID [{ProjectId}].", feedbackId, projectId);
+            throw new KeyNotFoundException($"Feedback with ID [{feedbackId}] not found in project ID [{projectId}].");
         }
 
-        _dbContext.InternProjectFeedbacks.Remove(feedback);
+        if (negativeFeedback.Rating >= negativeRatingThreshold)
+        {
+            _logger.LogWarning("Feedback ID [{FeedbackId}] in project ID [{ProjectId}] is not considered negative.", feedbackId, projectId);
+            throw new InvalidOperationException($"Cannot delete feedback ID [{feedbackId}] because its rating is not below the threshold ({negativeRatingThreshold}).");
+        }
+
+        _dbContext.InternProjectFeedbacks.Remove(negativeFeedback);
         
         await _dbContext.SaveChangesAsync();
         _logger.LogInformation("Feedback with ID [{FeedbackId}] successfully deleted.", feedbackId);

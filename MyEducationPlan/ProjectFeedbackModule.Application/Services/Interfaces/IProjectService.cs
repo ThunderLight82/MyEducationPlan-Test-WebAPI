@@ -8,6 +8,6 @@ public interface IProjectService
     Task<IEnumerable<InternProject>> GetProjects();
     Task<IEnumerable<InternProjectFeedback>> GetFeedbacksListByProjectId(int projectId);
     Task<double?> CalculateAverageProjectRating(int projectId);
-    Task DeleteAllNegativeFeedbacks(int projectId);
-    Task DeleteSingleFeedbackById(int feedbackId);
+    Task DeleteAllNegativeFeedbacks(int projectId); 
+    Task DeleteSingleFeedbackById(int projectId, int feedbackId);
 }
