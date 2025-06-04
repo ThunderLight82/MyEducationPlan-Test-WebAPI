@@ -70,14 +70,14 @@ public class Startup
             endpoints.MapControllerRoute(
                 name: "Feedbacks",
                 pattern: "Home/ProjectFeedbacksList/{projectId}",
-                defaults: new { controller = "Home", action = "GetGroups" }
+                defaults: new { controller = "Home", action = "GetProjects" }
             );
         });
         
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "UniversityManagement.WebApi");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEducationPlan v1");
         });
     }
 }
