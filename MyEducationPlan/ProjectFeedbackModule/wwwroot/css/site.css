@@ -1,0 +1,89 @@
+:root {
+  --primary-yellow: #ffc107;
+  --dark-yellow: #ffab00;
+  --light-gray: #f8f9fa;
+}
+
+body {
+  background-color: var(--light-gray);
+}
+
+.navbar-custom {
+  background-color: var(--primary-yellow) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-custom .navbar-brand {
+  font-weight: 600;
+  color: #250c29 !important;
+  font-size: 1.5rem;
+}
+
+.btn-primary-custom {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: #0d6efd;
+  transform: translateY(-1px);
+}
+
+.feedback-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary-yellow);
+}
+
+.feedback-card:hover {
+  transform: translateY(-3px);
+}
+
+.rating-badge {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.action-buttons {
+  gap: 10px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+}
+
+.content-wrapper {
+  flex: 1;
+}
+
+.social-icons {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
